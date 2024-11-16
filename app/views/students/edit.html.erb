@@ -1,0 +1,28 @@
+<%# CSS・・・assets/stylesheets/common/table.css %>
+<%= form_with model: @students, url: student_path, method: :patch do |form| %>
+  <div class="table_name">生徒一覧</div>
+  <%= alert %></br>
+  <table class="table_sticky">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>生徒名</th>
+        <th>年齢</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= form.submit "Update Students" %>
+
+    <% @students.each do |student| %>
+      <%= form.fields_for "students[#{student.id}]", student do |student_form| %>
+        <tr>
+          <td><%= student.id %></td>
+          <td><%= student.name %></td>
+          <td><%= student_form.text_field :age %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+    <tfoot></tfoot>
+  </table>
+<% end %>
