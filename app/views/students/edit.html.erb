@@ -13,15 +13,15 @@
     <tbody>
       <%= form.submit "Update Students" %>
 
-    <% @students.each do |student| %>
-      <%= form.fields_for "students[#{student.id}]", student do |student_form| %>
-        <tr>
-          <td><%= student.id %></td>
-          <td><%= student.name %></td>
-          <td><%= student_form.text_field :age %></td>
-        </tr>
+      <% @students.each do |student| %>
+        <%= form.fields_for "students[#{student.id}]", student do |student_form| %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.name %></td>
+            <td><%= student_form.text_field :age %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
     </tbody>
     <tfoot></tfoot>
   </table>
