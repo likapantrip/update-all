@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
       student_data = params.require(:"student").require(:"students").require(student_id).permit(:age)
       
       # データを更新
-      if student.update(age: student_data[:age]) == false
+      unless student.update(age: student_data[:age])
         flash[:alert] = "データ更新が失敗しました"
         redirect_to edit_student_path
         return
