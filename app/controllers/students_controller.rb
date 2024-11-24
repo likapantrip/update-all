@@ -19,12 +19,14 @@ class StudentsController < ApplicationController
       student_data = params.require(:"student").require(:"students").require(student_id).permit(:age)
       
       # データを更新
-      unless student.update(age: student_data[:age])
-        flash[:alert] = "データ更新が失敗しました"
+      student.update!(age: student_data[:age])
+      # データ更新に失敗した場合
+      rescue ActiveRecord::RecordInvalid => e
+        flash[:alert] = "#{e.record.errors.full_messages} ※#{Student.find(e.record.id).name}以降のデータは更新されていません"
         redirect_to edit_student_path
         return
-      end
     end
+    # 全件更新成功した場合
     redirect_to root_path
   end
 end
